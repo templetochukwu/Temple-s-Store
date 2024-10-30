@@ -1,8 +1,8 @@
-
+"use client"
 import { Button } from '@/components/ui/button';
-import { LayoutGrid, Search, ShoppingBag } from 'lucide-react'
+import { CassetteTape, LayoutGrid, Search, ShoppingBag } from 'lucide-react'
 import Image from 'next/image';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,9 +11,25 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import GlobalApi from '../_utils/GlobalApi';
 
 
 const Header = () => {
+
+  const [categoryList,setCategoryList] = useState([]);
+
+  useEffect(()=>{
+    getCategoryList();
+  },[])
+
+  // Get Category List
+
+  const getCategoryList=()=> {
+    GlobalApi.getCategory().then(resp=>{
+      setCategoryList(resp.data.data)
+    })
+  }
+
   return (
     <div className='p-5 shadow-md flex justify-between'>
       
@@ -28,12 +44,17 @@ const Header = () => {
                 <LayoutGrid className='h-5 w-5' /> category </h2>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
+
+
                 <DropdownMenuLabel>Browse Category</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
+                {categoryList.map((category1,index)=>(
+                   <DropdownMenuItem>
+                      <h2>{category1?.name}</h2>
+                   </DropdownMenuItem> 
+                ))}
+
+
               </DropdownMenuContent>
             </DropdownMenu>
 
