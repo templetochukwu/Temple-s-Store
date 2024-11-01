@@ -53,9 +53,9 @@ const Header = () => {
                 
                 {categoryList.map((category,index)=>(
 
-                   <DropdownMenuItem>
-                    <Image src={`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}${category?.icon[0]?.url}`} width={23} height={23} alt='icon' />
-                      <h2>{category?.name}</h2>
+                   <DropdownMenuItem className="flex gap-4 items-center cursor-pointer">
+                    <Image src={`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}${category?.icon[0]?.url}`} unoptimized={true} width={27} height={27} alt='icon' />
+                      <h2 className='text-lg'>{category?.name}</h2>
                    </DropdownMenuItem> 
                 ))}
 
